@@ -1,0 +1,112 @@
+﻿@using FutureFacePractice.Constants
+@model FutureFacePractice.Models.Student
+
+@{
+    ViewData["Title"] = "AddStudent";
+}
+
+
+<h1>Add Student</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-9">
+        <form asp-action="AddStudent" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group" hidden>
+                <label asp-for="ID" class="control-label"></label>
+                <input asp-for="ID" class="form-control" />
+                <span asp-validation-for="ID" class="text-danger"></span>
+            </div>
+            <div class="row">
+                <div class="form-group col-lg-6">
+                    <span>First Name</span><span class="text-danger">*</span>
+                    <input asp-for="FirstName" class="form-control" />
+                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                </div>
+                <div class="form-group col-lg-6">
+                    <span>Last Name</span><span class="text-danger">*</span>
+                    <input asp-for="LastName" class="form-control" />
+                    <span asp-validation-for="LastName" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-lg-6">
+                    <label asp-for="Email" class="control-label"></label><span class="text-danger">*</span>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="form-group col-lg-3">
+                    <label asp-for="Age" class="control-label"></label>
+                    <input asp-for="Age" class="form-control" />
+                    <span asp-validation-for="Age" class="text-danger"></span>
+                </div>
+                <div class="form-group col-lg-3">
+                    <label asp-for="Gender" class="control-label"></label><span class="text-danger">*</span>
+                    <div>
+                        <input type="radio" asp-for="Gender" class="form-check-input" name="gender" value="@Genders.Male.ToString()"> Male
+                        <input type="radio" asp-for="Gender" class="form-check-input" name="gender" value="@Genders.Female.ToString()"> Female
+                        <input type="radio" asp-for="Gender" class="form-check-input" name="gender" value="@Genders.Other.ToString()"> Other
+                    </div>
+                    <span asp-validation-for="Gender" class="text-danger"></span>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="form-group col-lg-9">
+                    <label asp-for="Address" class="control-label"></label>
+                    <textarea asp-for="Address" class="form-control"></textarea>
+                    <span asp-validation-for="Address" class="text-danger"></span>
+                </div>
+                <div class="form-group col-lg-3">
+                    <label asp-for="PinCode" class="control-label"></label>
+                    <input asp-for="PinCode" class="form-control" />
+                    <span asp-validation-for="PinCode" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-lg-6">
+                    <label asp-for="Center" class="control-label"></label><span class="text-danger">*</span>
+                    <div class="from-control">
+                        <select asp-for="Center" class="form-select">
+                            <option value="">---Select Center---</option>
+                            @foreach (var center in Enum.GetNames(typeof(Centers)))
+                            {
+                                <option value="@center">@center</option>
+                            }
+                        </select>
+                    </div>
+                    <span asp-validation-for="Center" class="text-danger"></span>
+                </div>
+                <div class="form-group col-lg-6">
+                    <label asp-for="Course" class="control-label"></label><span class="text-danger">*</span>
+                    <div class="from-control">
+                        <select asp-for="Course" class="form-select">
+                            <option value="">---Select Course---</option>
+                            @foreach (var course in Enum.GetNames(typeof(Courses)))
+                            {
+                                <option value="@course">@course</option>
+                            }
+                        </select>
+                    </div>
+                    <span asp-validation-for="Course" class="text-danger"></span>
+                </div>
+
+            </div>
+            <div align="right" margin="2px">
+                <div class="btn-group" role="group" aria-label="Basic outlined example">
+                    <a asp-action="GetAllStudents" class="btn btn-outline-secondary">Back to List</a>
+                    <input type="submit" value="Create" class="btn-outline-primary" />
+
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
